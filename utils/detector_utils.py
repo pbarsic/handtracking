@@ -58,6 +58,7 @@ def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, i
             p1 = (int(left), int(top))
             p2 = (int(right), int(bottom))
             cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
+            cv2.putText(image_np, str(scores[i]), (int(boxes[i][1] * im_width),  int(boxes[i][2] * im_height- 10)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
 
 
 # Show fps value on image.
