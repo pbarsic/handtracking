@@ -50,7 +50,7 @@ def load_inference_graph():
 # draw the detected bounding boxes on the images
 # You can modify this to also draw a label.
 # TODO allow for the score to be used here
-def draw_tracked_box_on_image(tracks, im_width, im_height, image_np, score_thresh=0.001):
+def draw_tracked_box_on_image(tracks, im_width, im_height, image_np, score_thresh=0.2):
     for i, track in enumerate(tracks):
         if (track[5] > score_thresh):
             (left, right, top, bottom) = (track[1] * im_width, track[3] * im_width,

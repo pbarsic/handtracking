@@ -124,7 +124,7 @@ if __name__ == '__main__':
         #                                 image_np)
         # draw bounding boxes on frame
         detector_utils.draw_tracked_box_on_image(tracked_objects,
-                                         im_width, im_height, image_np)
+                                         im_width, im_height, image_np, args.score_thresh)
 
         # Calculate Frames per second (FPS)
         num_frames += 1
