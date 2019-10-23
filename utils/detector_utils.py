@@ -49,7 +49,8 @@ def load_inference_graph():
 
 # draw the detected bounding boxes on the images
 # You can modify this to also draw a label.
-def draw_tracked_box_on_image(tracks, im_width, im_height, image_np):
+# TODO allow for the score to be used here
+def draw_tracked_box_on_image(tracks, im_width, im_height, image_np, score_thresh=1.0):
     for i, track in enumerate(tracks):
         (left, right, top, bottom) = (track[1] * im_width, track[3] * im_width,
                                       track[0] * im_height, track[2] * im_height)
@@ -59,7 +60,6 @@ def draw_tracked_box_on_image(tracks, im_width, im_height, image_np):
         cv2.putText(image_np, str(track[4]),
                 (int(track[1] * im_width),  int(track[2] * im_height- 10)),
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-
 
 
 # draw the detected bounding boxes on the images

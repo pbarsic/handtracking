@@ -108,7 +108,7 @@ if __name__ == '__main__':
         # print('---')
         detection_category = np.ones(len(scores))
 
-        #grouped = track_utils.group_detections(boxes, scores, detection_category)
+        #grouped_detections = track_utils.group_detections(boxes, scores, detection_category)
         grouped_detections = track_utils.group_detections_threshold(boxes, scores, detection_category, args.score_thresh)
         #print('------ grouped detections for frame ', num_frames, '------')
         #print grouped_detections
