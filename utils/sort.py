@@ -17,7 +17,7 @@
 """
 from __future__ import print_function
 
-from numba import jit
+#from numba import jit
 import os.path
 import numpy as np
 ##import matplotlib.pyplot as plt
@@ -29,7 +29,7 @@ import time
 import argparse
 from filterpy.kalman import KalmanFilter
 
-@jit
+#@jit
 def iou(bb_test,bb_gt):
   """
   Computes IUO between two bboxes in the form [x1,y1,x2,y2]
@@ -211,11 +211,11 @@ class Sort(object):
     for t,trk in enumerate(self.trackers):
       if(t not in unmatched_trks):
         d = matched[np.where(matched[:,1]==t)[0],0]
-        trk.update(dets[d,:][0])
+        trk.update(dets[d[0]])
 
     #create and initialise new trackers for unmatched detections
     for i in unmatched_dets:
-        trk = KalmanBoxTracker(dets[i,:]) # PHB TODO
+        trk = KalmanBoxTracker(dets[i])
         self.trackers.append(trk)
     i = len(self.trackers)
     for trk in reversed(self.trackers):
