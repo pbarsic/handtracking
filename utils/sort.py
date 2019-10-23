@@ -101,6 +101,7 @@ class KalmanBoxTracker(object):
     self.hit_streak = 0
     self.age = 0
     self.objclass = bbox[-1]
+    self.confidence_score = bbox[-2]
 
   def update(self,bbox):
     """
@@ -221,7 +222,7 @@ class Sort(object):
     for trk in reversed(self.trackers):
         d = trk.get_state()[0]
         if((trk.time_since_update < 1) and (trk.hit_streak >= self.min_hits or self.frame_count <= self.min_hits)):
-          ret.append(np.concatenate((d,[trk.id+1], [trk.objclass])).reshape(1,-1)) # +1 as MOT benchmark requires positive
+          ret.append(np.concatenate((d,[trk.id+1], [trk.confidence_score], [trk.objclass])).reshape(1,-1)) # +1 as MOT benchmark requires positive
         i -= 1
         #remove dead tracklet
         if(trk.time_since_update > self.max_age):

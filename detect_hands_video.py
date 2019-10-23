@@ -88,6 +88,7 @@ if __name__ == '__main__':
     # image_np = cv2.flip(image_np, 1)
 
     while ret:
+    #while num_frames < 10:
         try:
             image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
         except:
@@ -109,18 +110,20 @@ if __name__ == '__main__':
         detection_category = np.ones(len(scores))
 
         #grouped_detections = track_utils.group_detections(boxes, scores, detection_category)
-        grouped_detections = track_utils.group_detections_threshold(boxes, scores, detection_category, args.score_thresh)
-        #print('------ grouped detections for frame ', num_frames, '------')
-        #print grouped_detections
+        grouped_detections = track_utils.group_detections_threshold(boxes, 
+                                    scores, detection_category, args.score_thresh)
+        # print('------ grouped detections for frame ', num_frames, '------')
+        # print grouped_detections
 
         tracked_objects = mot_tracker.update(grouped_detections)
-        #print tracked_objects
+        # print('------ tracked objects for frame ', num_frames, '------')
+        # print tracked_objects
         # draw bounding boxes on frame
         #detector_utils.draw_box_on_image(num_hands_detect, args.score_thresh,
         #                                 scores, boxes, im_width, im_height,
         #                                 image_np)
         # draw bounding boxes on frame
-        detector_utils.draw_tracked_box_on_image(tracked_objects, 
+        detector_utils.draw_tracked_box_on_image(tracked_objects,
                                          im_width, im_height, image_np)
 
         # Calculate Frames per second (FPS)
