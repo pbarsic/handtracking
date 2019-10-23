@@ -87,8 +87,7 @@ if __name__ == '__main__':
     ret, image_np = cap.read()
     # image_np = cv2.flip(image_np, 1)
 
-#    while ret:
-    while num_frames < 5:
+    while ret:
         try:
             image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
         except:
