@@ -47,6 +47,20 @@ def load_inference_graph():
     print(">  ====== Hand Inference graph loaded.")
     return detection_graph, sess
 
+# draw the detected bounding boxes on the images
+# You can modify this to also draw a label.
+def draw_tracked_box_on_image(tracks, im_width, im_height, image_np):
+    for i, track in enumerate(tracks):
+        (left, right, top, bottom) = (track[1] * im_width, track[3] * im_width,
+                                      track[0] * im_height, track[2] * im_height)
+        p1 = (int(left), int(top))
+        p2 = (int(right), int(bottom))
+        cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
+        cv2.putText(image_np, str(track[4]),
+                (int(track[1] * im_width),  int(track[2] * im_height- 10)),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
+
+
 
 # draw the detected bounding boxes on the images
 # You can modify this to also draw a label.

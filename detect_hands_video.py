@@ -111,15 +111,18 @@ if __name__ == '__main__':
 
         #grouped = track_utils.group_detections(boxes, scores, detection_category)
         grouped_detections = track_utils.group_detections_threshold(boxes, scores, detection_category, args.score_thresh)
-        print('------ grouped detections for frame ', num_frames, '------')
-        print grouped_detections
+        #print('------ grouped detections for frame ', num_frames, '------')
+        #print grouped_detections
 
         tracked_objects = mot_tracker.update(grouped_detections)
-        print tracked_objects
+        #print tracked_objects
         # draw bounding boxes on frame
-        detector_utils.draw_box_on_image(num_hands_detect, args.score_thresh,
-                                         scores, boxes, im_width, im_height,
-                                         image_np)
+        #detector_utils.draw_box_on_image(num_hands_detect, args.score_thresh,
+        #                                 scores, boxes, im_width, im_height,
+        #                                 image_np)
+        # draw bounding boxes on frame
+        detector_utils.draw_tracked_box_on_image(tracked_objects, 
+                                         im_width, im_height, image_np)
 
         # Calculate Frames per second (FPS)
         num_frames += 1
