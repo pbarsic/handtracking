@@ -1,5 +1,6 @@
 from utils import detector_utils as detector_utils
 from utils import track_utils as track_utils
+from utils import sort as sort
 import cv2
 import tensorflow as tf
 import datetime
@@ -81,6 +82,8 @@ if __name__ == '__main__':
 
     # cv2.namedWindow('Single-Threaded Detection', cv2.WINDOW_NORMAL)
 
+    mot_tracker = sort.Sort()
+
     ret, image_np = cap.read()
     # image_np = cv2.flip(image_np, 1)
 
@@ -98,19 +101,21 @@ if __name__ == '__main__':
         boxes, scores = detector_utils.detect_objects(image_np,
                                                       detection_graph, sess)
 
-        print('score threshold = ', args.score_thresh)
-        print('------ Detection boxes for frame ', num_frames, '------')
-        print(boxes)
-        print('------ Detection scores for frame ', num_frames, '------')
-        print(scores)
-        print('---')
+        # print('score threshold = ', args.score_thresh)
+        # print('------ Detection boxes for frame ', num_frames, '------')
+        # print(boxes)
+        # print('------ Detection scores for frame ', num_frames, '------')
+        # print(scores)
+        # print('---')
         detection_category = np.ones(len(scores))
 
         #grouped = track_utils.group_detections(boxes, scores, detection_category)
-        grouped = track_utils.group_detections_threshold(boxes, scores, detection_category, args.score_thresh)
+        grouped_detections = track_utils.group_detections_threshold(boxes, scores, detection_category, args.score_thresh)
         print('------ grouped detections for frame ', num_frames, '------')
-        print grouped
+        print grouped_detections
 
+        tracked_objects = mot_tracker.update(grouped_detections)
+        print tracked_objects
         # draw bounding boxes on frame
         detector_utils.draw_box_on_image(num_hands_detect, args.score_thresh,
                                          scores, boxes, im_width, im_height,
